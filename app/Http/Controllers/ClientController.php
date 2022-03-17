@@ -164,6 +164,20 @@ class ClientController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $client=Client::find($id);
+        $client->delete();
+
+        return response()->json(array(
+            'successMessage' => 'Client destroyed'
+        ));
     }
+
+    //cUrl
+
+    //dizaine API - ajax, fetch, cUrl(javascript)
+    //backende gauti informacija is API: php, c#, - curl
+
+    //XAMP, WAMP, online serveryje - linux
+    //linux(ubuntu, centos ..) - curl
+
 }

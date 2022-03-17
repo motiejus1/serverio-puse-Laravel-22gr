@@ -18,6 +18,7 @@ class CreateClientsTable extends Migration
             $table->string('name');
             $table->string('surname');
             $table->longText('description');
+            $table->string('company_title');
             $table->timestamps();
         });
     }
