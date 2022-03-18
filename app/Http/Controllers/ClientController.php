@@ -18,10 +18,17 @@ class ClientController extends Controller
     public function index(Request $request)
     {   
         $csrf = $request->csrf; //apsaugos token(zetonas)
-        
+        $clientsAll = $request->clientsAll;
+
         if(isset($csrf) && !empty($csrf) && $csrf == "123456789") {
+            if(isset($clientsAll) && !empty($clientsAll) && $clientsAll == "all") {
+                $clients = Client::all();
+                return response()->json($clients);
+            }
+            
             $clients = Client::paginate(10);
             return response()->json($clients);
+        
         }
 
         return response()->json(array(
@@ -42,12 +49,15 @@ class ClientController extends Controller
             'client_name'=> $request->client_name,
             'client_surname'=> $request->client_surname,
             'client_description'=> $request->client_description,
+            'client_company_title'=> $request->client_company_title,
         ];
 
         $rules = [
             'client_name'=> 'required',
             'client_surname'=> 'required',
             'client_description'=> 'required',
+            'client_company_title'=> 'required',
+
         ];
    
         $validator = Validator::make($input, $rules);
@@ -68,6 +78,7 @@ class ClientController extends Controller
             $client->name = $request->client_name;
             $client->surname = $request->client_surname;
             $client->description = $request->client_description;
+            $client->company_title = $request->client_company_title;
         
             $client->save();//po isaugojimo momento
 
@@ -114,12 +125,14 @@ class ClientController extends Controller
             'client_name'=> $request->client_name,
             'client_surname'=> $request->client_surname,
             'client_description'=> $request->client_description,
+            'client_company_title'=> $request->client_company_title,
         ];
 
         $rules = [
             'client_name'=> 'required',
             'client_surname'=> 'required',
             'client_description'=> 'required',
+            'client_company_title'=> 'required',
         ];
    
         $validator = Validator::make($input, $rules);
@@ -140,6 +153,7 @@ class ClientController extends Controller
             $client->name = $request->client_name;
             $client->surname = $request->client_surname;
             $client->description = $request->client_description;
+            $client->company_title = $request->client_company_title;
         
             $client->save();//po isaugojimo momento
 
